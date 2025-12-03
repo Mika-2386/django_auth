@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<nav xmlns="http://www.w3.org/1999/html">
+    <h1> Это тесты аутентификации пользователей</h1>
+<h2>
+    {% if user.is_authenticated %}
+    <div> Hello, {{ user.username }} </div>
+</h2>
+    <p><a href="{% url 'logout' %}"><button type="submit"><h3>Выйти</h3></button></a></p>
+    <p>
+        <a href="{% url 'website' %}"><button type="submit"><h3>Переход к закрытому Сайт</h3></button></a>
+    </p>
+    <h3>
+    {% endif %}
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit"><h3>Войти</h3></button>
+
+        <p><a href="{% url 'register' %}"><button type="submit"><h3>Регистрация</h3></button></a></p>
+
+    </form>
+    </h3>
+
+</nav>
+
+
+
+
+{% endblock content %}
