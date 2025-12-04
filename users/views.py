@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from users.forms import RegisterForm
 
-
+# --- (регитрация, вхлд и выход пользователя)
 class UserLoginView(LoginView):
     form_class = AuthenticationForm
     template_name = 'home.html'  # Шаблон для логина
@@ -27,16 +27,14 @@ class RegisterView(CreateView):
     template_name = 'register.html'
     form_class = RegisterForm
     success_url = reverse_lazy('website')
-
+# -- проверка на эксклюзивность логина
     def form_valid(self, form):
         user = form.save()
-
         if user:
             login(self.request, user)
+            return super().form_valid(form)
 
-        return super().form_valid(form)
-
-
+#  ---- закрытый сайт
 @login_required
 def website_view(request):
     print("webserver_view вызван")
