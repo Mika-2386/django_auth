@@ -2,9 +2,10 @@
 
 {% block content %}
 
-<nav xmlns="http://www.w3.org/1999/html">
+<nav >
     <h1> Это тесты аутентификации пользователей</h1>
 <h2>
+<!--    для зарегистрированных пользователей-->
     {% if user.is_authenticated %}
     <div> Hello, {{ user.username }} </div>
 </h2>
@@ -13,20 +14,18 @@
         <a href="{% url 'website' %}"><button type="submit"><h3>Переход к закрытому Сайт</h3></button></a>
     </p>
     <h3>
-    {% endif %}
+
+        {% else %}
+<!--        иначе создать пользователя-->
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit"><h3>Войти</h3></button>
-
-        <p><a href="{% url 'register' %}"><button type="submit"><h3>Регистрация</h3></button></a></p>
-
-    </form>
     </h3>
+    {% endif %}
+    </form>
+     <p><a href="{% url 'register' %}"><button type="submit"><h3>Регистрация</h3></button></a></p>
 
 </nav>
-
-
-
 
 {% endblock content %}
